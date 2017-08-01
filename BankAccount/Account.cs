@@ -11,16 +11,27 @@ namespace BankAccount
     /// </summary>
     public class Account
     {
-        private double balance;
-
+        public double balance;
+        
         public Account()
         {
 
         }
 
+
+        public Account(double initialBalance)
+        {
+            if (initialBalance < 0)
+            {
+                throw new ArgumentException();
+            }
+            Balance = initialBalance;
+        }
+
         public double Balance
         {
-            get { return balance; }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -31,7 +42,7 @@ namespace BankAccount
         {
             if (amt > 0)
             {
-                balance += amt;
+                Balance += amt;
             }
             else
             {
@@ -46,7 +57,11 @@ namespace BankAccount
         /// <param name="amt">the amount to be withdrawn</param>
         public void Withdrawl(double amt)
         {
-            balance += amt;
+            if(amt < 0)
+            {
+                throw new ArgumentException("Withdrawl amount cannot be negative.");
+            }
+            Balance -= amt;
         }
     }
 }
